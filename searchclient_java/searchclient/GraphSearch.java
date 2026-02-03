@@ -38,16 +38,51 @@ public class GraphSearch {
             };
 
             Action[][] level2Sol = {
-                // TODO: Add solution for level 2
+                {Action.PushSS},
+                {Action.PushSS},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.PushSS}
             };
 
             Action[][] level3Sol = {
-                // TODO: Add solution for level 3
+                {Action.PushSS},
+                {Action.PushSS},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.MoveE},
+                {Action.PushSS}
             };
 
             // Change this variable to switch between different level solutions
-            Action[][] selectedSolution = level1Sol;
-
+            Action[][] selectedSolution = level3Sol;
             return selectedSolution;
         } else {
             //Part 2:
