@@ -15,7 +15,7 @@ public class GraphSearch {
             //The agents will perform the sequence of actions returned by this method.
             //Try to solve a few levels by hand, enter the found solutions below, and run them:
 
-            return new Action[][] {
+            Action[][] level1Sol = {
                 {Action.MoveS},
                 {Action.MoveE},
                 {Action.MoveE},
@@ -34,7 +34,21 @@ public class GraphSearch {
                 {Action.MoveE},
                 {Action.MoveE},
                 {Action.MoveE},
+                {Action.PushSS}
             };
+
+            Action[][] level2Sol = {
+                // TODO: Add solution for level 2
+            };
+
+            Action[][] level3Sol = {
+                // TODO: Add solution for level 3
+            };
+
+            // Change this variable to switch between different level solutions
+            Action[][] selectedSolution = level1Sol;
+
+            return selectedSolution;
         } else {
             //Part 2:
             //Now try to implement the Graph-Search algorithm from R&N figure 3.7
