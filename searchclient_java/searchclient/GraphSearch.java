@@ -34,7 +34,6 @@ public class GraphSearch {
                 {Action.MoveE},
                 {Action.MoveE},
                 {Action.MoveE},
-                {Action.MoveS},
             };
         } else {
             //Part 2:
