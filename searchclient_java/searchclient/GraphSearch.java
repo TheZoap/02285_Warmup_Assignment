@@ -1,69 +1,47 @@
 package searchclient;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class GraphSearch {
 
     public static Action[][] search(State initialState, Frontier frontier)
     {
-        boolean outputFixedSolution = true;
+        boolean outputFixedSolution = false;
 
         if (outputFixedSolution) {
-            //Part 1:
-            //The agents will perform the sequence of actions returned by this method.
-            //Try to solve a few levels by hand, enter the found solutions below, and run them:
+            // ------------------------------------------------------------
+            // PART 1: Fixed (hand-coded) solution
+            // ------------------------------------------------------------
 
             Action[][] level1Sol = {
-                {Action.MoveS},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveS},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.MoveE},
-                {Action.PushSS}
+                    {Action.MoveS},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveS},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.MoveE},
+                    {Action.PushSS}
             };
 
-            Action[][] level2Sol = {
-                // TODO: Add solution for level 2
-            };
-
-            Action[][] level3Sol = {
-                // TODO: Add solution for level 3
-            };
-
-            // Change this variable to switch between different level solutions
             Action[][] selectedSolution = level1Sol;
-
             return selectedSolution;
-        } else {
-            //Part 2:
-            //Now try to implement the Graph-Search algorithm from R&N figure 3.7
-            //In the case of "failure to find a solution" you should return null.
-            //Some useful methods on the state class which you will need to use are:
-            //state.isGoalState() - Returns true if the state is a goal state.
-            //state.extractPlan() - Returns the Array of actions used to reach this state.
-            //state.getExpandedStates() - Returns an ArrayList<State> containing the states reachable from the current state.
-            //You should also take a look at Frontier.java to see which methods the Frontier interface exposes
-            //
-            //printSearchStatus(expanded, frontier): As you can see below, the code will print out status
-            //(#expanded states, size of the frontier, #generated states, total time used) for every 10000th node generated.
-            //You should also make sure to print out these stats when a solution has been found, so you can keep
-            //track of the exact total number of states generated!!
 
+        } else {
+            // ------------------------------------------------------------
+            // PART 2: Breadth-First Graph Search (R&N Fig. 3.7)
+            // ------------------------------------------------------------
 
             int iterations = 0;
 
@@ -72,23 +50,56 @@ public class GraphSearch {
 
             while (true) {
 
-                //Print a status message every 10000 iteration
+                if (frontier.isEmpty()) {
+                    return null; // Failure: no solution
+                }
+
+                // Print search status every 10000 generated nodes
                 if (++iterations % 10000 == 0) {
                     printSearchStatus(expanded, frontier);
                 }
 
-                //Your code here... Don't forget to print out the stats when a solution has been found (see above)
+                State state = frontier.pop();
+
+                // Goal test
+                if (state.isGoalState()) {
+                    printSearchStatus(expanded, frontier);
+                    return state.extractPlan();
+                }
+
+                expanded.add(state);
+
+                // Expand state
+                for (State child : state.getExpandedStates()) {
+                    if (!expanded.contains(child) && !frontier.contains(child)) {
+                        frontier.add(child);
+                    }
+                }
             }
         }
     }
+
+    // ------------------------------------------------------------
+    // Search statistics
+    // ------------------------------------------------------------
 
     private static long startTime = System.nanoTime();
 
     private static void printSearchStatus(HashSet<State> expanded, Frontier frontier)
     {
-        String statusTemplate = "#Expanded: %,8d, #Frontier: %,8d, #Generated: %,8d, Time: %3.3f s\n%s\n";
-        double elapsedTime = (System.nanoTime() - startTime) / 1_000_000_000d;
-        System.err.format(statusTemplate, expanded.size(), frontier.size(), expanded.size() + frontier.size(),
-                          elapsedTime, Memory.stringRep());
+        String statusTemplate =
+                "#Expanded: %,8d, #Frontier: %,8d, #Generated: %,8d, Time: %3.3f s\n%s\n";
+
+        double elapsedTime =
+                (System.nanoTime() - startTime) / 1_000_000_000d;
+
+        System.err.format(
+                statusTemplate,
+                expanded.size(),
+                frontier.size(),
+                expanded.size() + frontier.size(),
+                elapsedTime,
+                Memory.stringRep()
+        );
     }
 }
