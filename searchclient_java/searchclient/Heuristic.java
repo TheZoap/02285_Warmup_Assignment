@@ -20,16 +20,7 @@ public abstract class Heuristic
             {
                 char goal = State.goals[row][col];
 
-                // Box goal
-                if ('A' <= goal && goal <= 'Z')
-                {
-                    if (s.boxes[row][col] != goal)
-                    {
-                        count++;
-                    }
-                }
-                // Agent goal
-                else if ('0' <= goal && goal <= '9')
+                if ('0' <= goal && goal <= '9')
                 {
                     int agent = goal - '0';
                     if (s.agentRows[agent] != row || s.agentCols[agent] != col)
@@ -39,6 +30,9 @@ public abstract class Heuristic
                 }
             }
         }
+
+        System.err.println(s);
+        System.err.println("h(s) = " + count);
         return count;
     }
 
