@@ -12,8 +12,36 @@ public abstract class Heuristic
 
     public int h(State s)
     {
-        return 0;
+        int count = 0;
+
+        for (int row = 1; row < State.goals.length - 1; row++)
+        {
+            for (int col = 1; col < State.goals[row].length - 1; col++)
+            {
+                char goal = State.goals[row][col];
+
+                // Box goal
+                if ('A' <= goal && goal <= 'Z')
+                {
+                    if (s.boxes[row][col] != goal)
+                    {
+                        count++;
+                    }
+                }
+                // Agent goal
+                else if ('0' <= goal && goal <= '9')
+                {
+                    int agent = goal - '0';
+                    if (s.agentRows[agent] != row || s.agentCols[agent] != col)
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
     }
+
 
     public abstract int f(State s);
 

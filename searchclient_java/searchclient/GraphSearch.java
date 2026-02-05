@@ -38,7 +38,7 @@ public class GraphSearch {
             Action[][] selectedSolution = level1Sol;
             return selectedSolution;
 
-        } else {
+        } else{
             // ------------------------------------------------------------
             // PART 2: Breadth-First Graph Search (R&N Fig. 3.7)
             // ------------------------------------------------------------
